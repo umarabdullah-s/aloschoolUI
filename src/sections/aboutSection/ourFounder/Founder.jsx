@@ -4,6 +4,8 @@ import img from "@/assets/aboutpage/founder1.jpg"
 import { FaLinkedinIn } from "react-icons/fa";
 
 const Founder = () => {
+
+  
   return (
     <div className={styles.container}>
       <p className={styles.mobileTitle}>

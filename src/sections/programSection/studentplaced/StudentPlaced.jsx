@@ -1,0 +1,142 @@
+import React, { useEffect, useState } from "react";
+import styles from "./studentplaced.module.css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+import { getAlumniOnly } from "@/api/serviceApi";
+
+import "swiper/css";
+import "swiper/css/autoplay";
+
+const StudentPlaced = () => {
+  const [students, setStudents] = useState([]);
+
+  useEffect(() => {
+    fetchAlumni();
+  }, []);
+
+  const fetchAlumni = async () => {
+    try {
+      const res = await getAlumniOnly();
+
+      if (res?.data?.status && Array.isArray(res?.data?.data)) {
+        const mappedData = res.data.data.map((item) => ({
+          alumniName: item.alumniName || "Student Name",
+          position: item.position || "Position",
+          alumniImage:
+            item.alumniImage || "https://via.placeholder.com/150",
+          companyLogo:
+            item.companyLogo || "https://via.placeholder.com/40",
+        }));
+
+        setStudents(mappedData);
+      }
+    } catch (error) {
+      console.error("Error fetching alumni list:", error);
+    }
+  };
+
+  return (
+    <div data-aos="fade-up" className={styles.container}>
+      <div className={styles.wrapper}>
+        <div className={styles.head}>
+          <p className={styles.title}>100+ Placed Students</p>
+          <p className={styles.para}>
+            ALO has placed 100+ trainees in leading IT companies, ensuring
+            industry-ready skills
+            <br />
+            and career growth
+          </p>
+        </div>
+
+        {students.length > 0 && (
+          <Swiper
+            className={styles.slider}
+            modules={[Autoplay]}
+            spaceBetween={20}
+            slidesPerView={4}
+            loop={true}
+            loopAdditionalSlides={students.length}
+            speed={6000}
+            autoplay={{
+              delay: 0,
+              disableOnInteraction: false,
+            }}
+            allowTouchMove={false}
+            breakpoints={{
+              320: { slidesPerView: 1 },
+              576: { slidesPerView: 2 },
+              768: { slidesPerView: 3 },
+              1024: { slidesPerView: 4 },
+            }}
+          >
+            {students.map((student, index) => (
+              <SwiperSlide key={index}>
+                <div className={styles.card}>
+                  <div className={styles.topInfo}>
+                    <div className={styles.namelogo}>
+                      {/* Name */}
+                      <div className={styles.name}>
+                        <p className={styles.stuname}>{student.alumniName}</p>
+                      </div>
+
+                      {/* Company logo */}
+                      <div className={styles.logoBox}>
+                        <img
+                          src={student.companyLogo}
+                          alt="Company Logo"
+                          className={styles.cmpnylogo}
+                          onError={(e) =>
+                            (e.currentTarget.src =
+                              "https://via.placeholder.com/40")
+                          }
+                        />
+                      </div>
+                    </div>
+
+                    {/* Company name */}
+                    <div className={styles.companyText}>
+                      <p className={styles.companyName}>{student.position}</p>
+                    </div>
+                  </div>
+                  {/* <div className={styles.companyBox}>
+                    <img
+                      src={student.companyLogo}
+                      alt="Company Logo"
+                      className={styles.cmpnylogo}
+                      onError={(e) =>
+                        (e.currentTarget.src =
+                          "https://via.placeholder.com/40")
+                      }
+                    />
+                  </div> */}
+
+                  {/* <div className={styles.name}>
+                    <p className={styles.stuname}>
+                      {student.alumniName}
+                    </p>
+                    <p className={styles.position}>
+                      {student.position}
+                    </p>
+                  </div> */}
+
+                  <div className={styles.img}>
+                    <img
+                      src={student.alumniImage}
+                      alt={student.alumniName}
+                      onError={(e) =>
+                        (e.currentTarget.src =
+                          "https://via.placeholder.com/150")
+                      }
+                    />
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default StudentPlaced;

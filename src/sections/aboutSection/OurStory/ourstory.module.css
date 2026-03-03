@@ -1,0 +1,237 @@
+
+.container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  
+}
+.wrapper{
+  display: flex;
+  width: 80%;
+}
+
+
+
+.leftPanel{
+  width: 260px;
+position: sticky;
+  top: 220px;
+  height: fit-content;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  padding-top: 0px; 
+
+}
+
+
+.leftPanel p{
+  position: relative;
+  cursor: pointer;
+}
+
+.leftPanel::after{
+  content:"";
+  position:absolute;
+  left:-18px;
+  top:0;
+  width:3px;
+  height:100%;
+
+}
+.leftPanel p:hover{
+  color: #ff4d30;
+}
+.active{
+  color:#ff4d30;
+  font-weight:600;
+  transform: translateX(6px);
+  transition: all .3s ease;
+}
+
+
+
+
+.rightPanel{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+
+.title{
+    display: flex;
+    justify-content: center;
+  font-size: 3rem;
+  font-weight: 500;
+  color: #144196;  
+  padding-top: 120px;
+
+  background: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.title span{
+    color:#FF300E;
+    margin-left: 10px;
+}
+.scrollContent{
+ height: 450px;
+ overflow-x: hidden;
+ overflow-y: auto;
+ display: flex;
+  flex-direction: column;
+  gap: 100px;
+  scroll-behavior: smooth;
+   scroll-snap-type: y mandatory;  
+}
+.scrollContent section{
+  scroll-snap-align: start;
+}
+
+.scrollContent::-webkit-scrollbar {
+  width: 4px;   
+}
+
+.scrollContent::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollContent::-webkit-scrollbar-thumb {
+  background: #d6d6d6;  
+  border-radius: 20px;
+}
+
+.scrollContent::-webkit-scrollbar-thumb:hover {
+  background: #bfbfbf;   
+}
+@media (max-width: 576px) {
+
+  .wrapper{
+    flex-direction: column;
+    width: 90%;
+  }
+  .leftPanel {
+    display: none;
+  }
+  .rightPanel {
+    width: 100%;
+  }
+
+  .title {
+    position: static;
+    font-size: 2rem;
+    padding-top: 90px;
+    text-align: center;
+  }
+
+  .scrollContent {
+    height: auto;
+    overflow: visible;
+    gap: 70px;
+    scroll-snap-type: none;
+  }
+  
+}
+@media (min-width: 577px) and (max-width: 768px) {
+
+  .wrapper {
+    flex-direction: column;
+    width: 90%;
+  }
+
+  
+  .leftPanel {
+    display: none;
+  }
+
+  .rightPanel {
+    width: 100%;
+  }
+
+  .title {
+    position: static;   
+    font-size: 2.5rem;
+    padding-top: 80px;
+    text-align: center;
+  }
+
+  .scrollContent {
+    height: auto;         
+    overflow: visible;
+    gap: 60px;
+    scroll-snap-type: none;
+  }
+}
+@media (min-width: 769px) and (max-width: 992px) {
+
+  .wrapper {
+    flex-direction: column;
+    width: 90%;
+  }
+
+
+  .leftPanel {
+    display: none;
+  }
+
+  .rightPanel {
+    width: 100%;
+  }
+
+  .title {
+    position: static;     
+    font-size: 2.7rem;
+    padding-top: 80px;
+    text-align: center;
+  }
+
+  .scrollContent {
+    height: auto;         
+    overflow: visible;
+    gap: 100px;
+    scroll-snap-type: none;
+  }
+}
+@media (min-width: 993px) and (max-width: 1200px) {
+
+  .wrapper {
+    width: 90%;
+    gap: 0px;
+  }
+
+  .leftPanel {
+    display: flex;     
+    width: 180px;
+    gap: 18px;
+  }
+
+  .leftPanel p {
+    font-size: 15px;
+  }
+
+  .rightPanel {
+    flex: 1;
+  }
+
+  .title {
+    position: sticky;     
+    top: 0;
+    font-size: 2.8rem;
+    padding-top: 110px;
+  }
+
+  .scrollContent {
+    height: 430px;      
+    overflow-y: auto;
+    gap: 100px;
+    scroll-snap-type: y mandatory;
+  }
+}
+

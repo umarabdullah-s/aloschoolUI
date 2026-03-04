@@ -131,6 +131,9 @@ height: 50vh;
 font-size:60px;
 color:#ccc;
 }
+.slider :global(.swiper-wrapper) {
+  transition-timing-function: linear !important;
+}
 @media (max-width:576px){
 
 .wrapper{

@@ -7,10 +7,10 @@ const applicationform = () => {
   return (
     <Fragment>
       <Head>
-        <title>Alo School of Design and Technology</title>
+        <title>ALO School | Application Form</title>
         {/* enter seo here */}
       </Head>
-    <Applicationform/>
+      <Applicationform />
     </Fragment>
   );
 };

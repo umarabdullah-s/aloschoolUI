@@ -8,7 +8,7 @@ const About = () => {
   return (
     <Fragment>
       <Head>
-        <title>About - Boiler Code</title>
+        <title>ALO School | About</title>
         {/* enter seo here */}
       </Head>
     <OurStory/>

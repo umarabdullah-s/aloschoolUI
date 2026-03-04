@@ -2,6 +2,10 @@
 import React from "react";
 import styles from "@/sections/homeSection/AdmissionProcedure/applicationform.module.css";
 import { TextField, Typography, Button, Box } from "@mui/material";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 
 const EducationDetails = ({ form, setForm, errors, setErrors }) => {
 const handleEducationChange = (index, e) => {
@@ -87,29 +91,59 @@ const handleEducationChange = (index, e) => {
             </div>
 
             <div className={styles.formrow}>
-              <TextField
-                label="From*"
-                name="fromYear"
-                type="number"
-                value={edu.fromYear}
-                onChange={(e) => handleEducationChange(index, e)}
-                error={!!errors[`education-${index}-fromYear`]}
-                helperText={errors[`education-${index}-fromYear`]}
-                fullWidth
-              />
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label="From Year*"
+                  views={["year"]}
+                  value={edu.fromYear ? dayjs(`${edu.fromYear}-01-01`) : null}
+                  onChange={(value) =>
+                    handleEducationChange(index, {
+                      target: {
+                        name: "fromYear",
+                        value: value ? value.year() : "",
+                      },
+                    })
+                  }
+                  slotProps={{
+                    textField: {
+                      fullWidth: true,
+                      error: !!errors[`education-${index}-fromYear`],
+                      helperText: errors[`education-${index}-fromYear`],
+                      inputProps: {
+                        readOnly: true, // 🔥 prevents typing issue
+                      },
+                    },
+                  }}
+                />
+              </LocalizationProvider>
             </div>
 
             <div className={styles.formrow}>
-              <TextField
-                label="To*"
-                name="toYear"
-                type="number"
-                value={edu.toYear}
-                onChange={(e) => handleEducationChange(index, e)}
-                error={!!errors[`education-${index}-toYear`]}
-                helperText={errors[`education-${index}-toYear`]}
-                fullWidth
-              />
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label="To Year*"
+                  views={["year"]}
+                  value={edu.toYear ? dayjs(`${edu.toYear}-01-01`) : null}
+                  onChange={(value) =>
+                    handleEducationChange(index, {
+                      target: {
+                        name: "toYear",
+                        value: value ? value.year() : "",
+                      },
+                    })
+                  }
+                  slotProps={{
+                    textField: {
+                      fullWidth: true,
+                      error: !!errors[`education-${index}-toYear`],
+                      helperText: errors[`education-${index}-toYear`],
+                      inputProps: {
+                        readOnly: true, // 🔥 prevents typing issue
+                      },
+                    },
+                  }}
+                />
+              </LocalizationProvider>
             </div>
 
             <div className={styles.formrow}>

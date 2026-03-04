@@ -23,7 +23,6 @@
     margin-bottom: 10px;
 }
 .divs{
-  
     display: flex;
     flex-direction: column;
    justify-content: space-around;
@@ -90,7 +89,9 @@ gap: 10px;
 .thirdClass{
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     align-items: flex-end;
+    gap: 80px;
 }
 .links {
   color: #FFFFFF;

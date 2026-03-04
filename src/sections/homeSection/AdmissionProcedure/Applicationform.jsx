@@ -17,6 +17,12 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
+import { useRouter } from "next/navigation";
+import Slide from "@mui/material/Slide";
+
+const SlideTransition = (props) => {
+  return <Slide {...props} direction="up" />;
+};
 
 const steps = [
   "Personal Details",
@@ -26,7 +32,7 @@ const steps = [
 ];
 
 const Applicationform = () => {
-  
+  const router = useRouter();
 const [form, setForm] = useState({
   firstName: "",
   lastName: "",
@@ -66,12 +72,12 @@ const [form, setForm] = useState({
   },
   agreeTerms: false,
 });
-
   const [errors, setErrors] = useState({});
   const [activeStep, setActiveStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState([]);
   const [documentsError, setDocumentsError] = useState(false);
   const [termsError, setTermsError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState({
     open: false,
     message: "",
@@ -192,7 +198,7 @@ setDocumentsError(false);
   }
 
   setTermsError(false); 
-
+  setLoading(true); 
   try {
     const getUrl = (res) => res?.data?.data?.imageURL || null;
 
@@ -208,52 +214,60 @@ setDocumentsError(false);
       ...form,
       documents: { ...form.documents, ...uploadedUrls },
     });
-    setForm({
-      firstName: "",
-      lastName: "",
-      dob: "",
-      gender: "",
-      phone: "",
-      email: "",
-      pincode: "",
-      country: "",
-      state: "",
-      district: "",
-      address: "",
-      bloodGroup: "",
-      parentName: "",
-      relation: "",
-      emergencyContact: "",
-      alternateEmail: "",
-      occupation: "",
-      education: [
-        { degree: "", institute: "", fromYear: "", toYear: "", grade: "" },
-      ],
-      documents: {
-        image: null,
-        signature: null,
-        aadhar: null,
-        marksheet: null,
-        tc: null,
-      },
-      agreeTerms: false,
-    });
-
-    setActiveStep(0); 
 
     setToast({
       open: true,
-      message: "Application submitted successfully 🎉",
+      message: "Application submitted successfully",
       severity: "success",
     });
+    setLoading(false);
+    setTimeout(() => {
+      setForm({
+        firstName: "",
+        lastName: "",
+        dob: "",
+        gender: "",
+        phone: "",
+        email: "",
+        pincode: "",
+        country: "",
+        state: "",
+        district: "",
+        address: "",
+        bloodGroup: "",
+        parentName: "",
+        relation: "",
+        emergencyContact: "",
+        alternateEmail: "",
+        occupation: "",
+        education: [
+          { degree: "", institute: "", fromYear: "", toYear: "", grade: "" },
+        ],
+        documents: {
+          image: null,
+          signature: null,
+          aadhar: null,
+          marksheet: null,
+          tc: null,
+        },
+        agreeTerms: false,
+      });
+
+      router.push("/");
+    }, 1500);
   } catch (error) {
-   setToast({
-     open: true,
-     message: error.message || "Something went wrong",
-     severity: "error",
-   });
+    console.log(error);
+
+    setToast({
+      open: true,
+      message: "Something went wrong. Please try again.",
+      severity: "error",
+    });
+
+    setLoading(false);
   }
 };
+
   return (
     <Box className={styles.container}>
       <Box className={styles.wrapper} sx={{ width: "90%", py: 5 }}>
@@ -323,13 +337,16 @@ setDocumentsError(false);
             variant="contained"
             size="large"
             className={styles.nextBtn}
+            disabled={loading}
             onClick={
               activeStep === steps.length - 1 ? handleSubmit : handleNext
             }
           >
-            {activeStep === steps.length - 1
-              ? "Submit Application"
-              : "Next Step →"}
+            {loading
+              ? "Submitting..."
+              : activeStep === steps.length - 1
+                ? "Submit Application"
+                : "Next Step →"}
           </Button>
         </Box>
       </Box>
@@ -337,7 +354,8 @@ setDocumentsError(false);
         open={toast.open}
         autoHideDuration={3000}
         onClose={() => setToast((prev) => ({ ...prev, open: false }))}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        TransitionComponent={SlideTransition}
       >
         <Alert
           severity={toast.severity}

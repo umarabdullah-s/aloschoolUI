@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./campuslife.module.css";
 import { getEvent } from "@/api/serviceApi";
+import { HiOutlineCalendarDays } from "react-icons/hi2";
 
 const CampusLife = () => {
   const [campusData, setCampusData] = useState([]);
@@ -103,7 +104,15 @@ const [tabLoading, setTabLoading] = useState(false);
   }
 
   if (error) return <p className={styles.error}>{error}</p>;
-  if (!activeTab) return <p>No events found</p>;
+ if (!activeTab) {
+   return (
+     <div className={styles.noEventContainer}>
+       <HiOutlineCalendarDays className={styles.noEventIcon} />
+       <h2>No Events Yet</h2>
+       <p>Campus photos will appear here once events are uploaded</p>
+     </div>
+   );
+ }
 
   return (
     <div className={styles.container}>

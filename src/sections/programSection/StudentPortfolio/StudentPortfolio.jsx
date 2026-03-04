@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./studentportfolio.module.css";
 import { FaBehance } from "react-icons/fa";
 import { getPortfolioOnly } from "@/api/serviceApi";
+import { TbFoldersOff } from "react-icons/tb";
 
 const StudentPortfolio = () => {
   const [portfolio, setPortfolio] = useState([]);
@@ -64,9 +65,13 @@ const StudentPortfolio = () => {
           ))}
 
           {portfolio.length === 0 && (
-            <p style={{ textAlign: "center" }}>
-              No portfolio data found
-            </p>
+            <div className={styles.emptyState}>
+              <TbFoldersOff className={styles.emptyIcon} />
+              <p className={styles.emptyTitle}>No Portfolio Yet</p>
+              <p className={styles.emptySub}>
+                Student projects will appear here once uploaded
+              </p>
+            </div>
           )}
         </div>
       </div>

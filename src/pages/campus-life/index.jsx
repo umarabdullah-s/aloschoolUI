@@ -7,7 +7,7 @@ const Campus = () => {
   return (
     <Fragment>
       <Head>
-        <title>Home - Boiler Code</title>
+        <title>ALO School | Campus Life</title>
         {/* enter seo here */}
       </Head>
       <CampusLife/>

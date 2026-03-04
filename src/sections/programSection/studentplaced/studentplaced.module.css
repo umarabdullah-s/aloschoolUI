@@ -36,11 +36,27 @@ line-height: 1.4;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    background-color: #FFBB0E;
     position: relative;  
-    padding: 10px 10px 0 10px; 
+   padding: 15px;
+   padding-bottom: 0;
+}
+.yellow{
+background:#FFBB0E;
+}
+
+.blue{
+background:#3B82F6;
+}
+
+.red{
+background:#EF4444;
+}
+
+.orange{
+background:#F97316;
 }
 .namelogo{
+    margin-bottom: 5px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -51,15 +67,26 @@ line-height: 1.4;
 }
 
 .name{
-    /* padding: 25px 0 0px 10px; */
     color: white;
-    
-    
 }
 .stuname{
-    margin-bottom:0.5em;
     font-size: 1.2rem;
     font-weight: 700;
+}
+.companyName{
+    color: white;
+    font-size: 0.8rem;
+}
+.logoBox{
+    width: 60px;
+    height: 30px;
+    background: #fff;
+    border-radius: 8px;
+}
+.logoBox img{
+    width: 100%;
+    height: 100%;
+   object-fit: contain;
 }
 .slider {
   pointer-events: none;
@@ -88,6 +115,21 @@ line-height: 1.4;
 }
 .img:hover img{
     transform: scale(1.09);
+}
+.emptyState{
+margin-top:40px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:10px;
+color:#555;
+height: 50vh;
+}
+
+.emptyIcon{
+font-size:60px;
+color:#ccc;
 }
 @media (max-width:576px){
 
@@ -263,29 +305,6 @@ line-height: 1.4;
 }
 
 }
-/* Company logo + name - TOP RIGHT */
-.companyBox{
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    z-index: 5;
-}
 
-.cmpnylogo{
-    width: 45px;
-    height: 25px;
-    object-fit: contain;
-    background: #fff;
-    padding: 4px;
-    border-radius: 8px;
-}
 
-.companyName{
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #000;
-    white-space: nowrap;
-}
+

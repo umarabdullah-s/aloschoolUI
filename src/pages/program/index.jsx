@@ -11,7 +11,7 @@ const Program = () => {
   return (
     <Fragment>
       <Head>
-        <title>Home - Boiler Code</title>
+        <title>ALO School | Program</title>
         {/* enter seo here */}
       </Head>
      <ProgramHero/>

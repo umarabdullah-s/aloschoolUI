@@ -51,10 +51,11 @@ const UploadDocuments = ({ form, setForm, termsError, documentsError }) => {
             sx={{
               width: 170,
               height: 170,
-              border:
-                documentsError && !form.documents?.[doc.key]
-                  ? "2px dashed #d32f2f"
-                  : "2px dashed #999",
+              border: form.documents?.[doc.key]
+                ? "2px dashed #2e7d32" // green when uploaded
+                : documentsError
+                  ? "2px dashed #d32f2f" // red when error
+                  : "2px dashed #999", // default
               borderRadius: 2,
               display: "flex",
               alignItems: "center",
@@ -71,7 +72,10 @@ const UploadDocuments = ({ form, setForm, termsError, documentsError }) => {
               onChange={(e) => handleFileChange(e, doc.key)}
             />
 
-            <Typography fontWeight={500}>{doc.label}</Typography>
+            <Typography fontWeight={500}>
+              {form.documents?.[doc.key] ? "✔ " : ""}
+              {doc.label}
+            </Typography>
             <Typography fontSize={12}>
               {form.documents?.[doc.key]
                 ? form.documents[doc.key].name

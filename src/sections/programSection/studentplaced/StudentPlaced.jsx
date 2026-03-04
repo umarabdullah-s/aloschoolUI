@@ -3,6 +3,7 @@ import styles from "./studentplaced.module.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import { getAlumniOnly } from "@/api/serviceApi";
+import { FaUserGraduate } from "react-icons/fa";
 
 import "swiper/css";
 import "swiper/css/autoplay";
@@ -48,7 +49,7 @@ const StudentPlaced = () => {
           </p>
         </div>
 
-        {students.length > 0 && (
+        {students.length > 0 ? (
           <Swiper
             className={styles.slider}
             modules={[Autoplay]}
@@ -69,70 +70,48 @@ const StudentPlaced = () => {
               1024: { slidesPerView: 4 },
             }}
           >
-            {students.map((student, index) => (
-              <SwiperSlide key={index}>
-                <div className={styles.card}>
-                  <div className={styles.topInfo}>
-                    <div className={styles.namelogo}>
-                      {/* Name */}
-                      <div className={styles.name}>
-                        <p className={styles.stuname}>{student.alumniName}</p>
+            {students.map((student, index) => {
+              const cardColor =
+                index % 4 === 0
+                  ? styles.yellow
+                  : index % 4 === 1
+                    ? styles.blue
+                    : index % 4 === 2
+                      ? styles.red
+                      : styles.orange;
+
+              return (
+                <SwiperSlide key={index}>
+                  <div className={`${styles.card} ${cardColor}`}>
+                    <div className={styles.topInfo}>
+                      <div className={styles.namelogo}>
+                        <div className={styles.name}>
+                          <p className={styles.stuname}>{student.alumniName}</p>
+                        </div>
+
+                        <div className={styles.logoBox}>
+                          <img src={student.companyLogo} alt="Company Logo" />
+                        </div>
                       </div>
 
-                      {/* Company logo */}
-                      <div className={styles.logoBox}>
-                        <img
-                          src={student.companyLogo}
-                          alt="Company Logo"
-                          className={styles.cmpnylogo}
-                          onError={(e) =>
-                            (e.currentTarget.src =
-                              "https://via.placeholder.com/40")
-                          }
-                        />
+                      <div className={styles.companyText}>
+                        <p className={styles.companyName}>{student.position}</p>
                       </div>
                     </div>
 
-                    {/* Company name */}
-                    <div className={styles.companyText}>
-                      <p className={styles.companyName}>{student.position}</p>
+                    <div className={styles.img}>
+                      <img src={student.alumniImage} alt={student.alumniName} />
                     </div>
                   </div>
-                  {/* <div className={styles.companyBox}>
-                    <img
-                      src={student.companyLogo}
-                      alt="Company Logo"
-                      className={styles.cmpnylogo}
-                      onError={(e) =>
-                        (e.currentTarget.src =
-                          "https://via.placeholder.com/40")
-                      }
-                    />
-                  </div> */}
-
-                  {/* <div className={styles.name}>
-                    <p className={styles.stuname}>
-                      {student.alumniName}
-                    </p>
-                    <p className={styles.position}>
-                      {student.position}
-                    </p>
-                  </div> */}
-
-                  <div className={styles.img}>
-                    <img
-                      src={student.alumniImage}
-                      alt={student.alumniName}
-                      onError={(e) =>
-                        (e.currentTarget.src =
-                          "https://via.placeholder.com/150")
-                      }
-                    />
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
+        ) : (
+          <div className={styles.emptyState}>
+            <FaUserGraduate className={styles.emptyIcon} />
+            <p>No Students Placed Yet</p>
+          </div>
         )}
       </div>
     </div>

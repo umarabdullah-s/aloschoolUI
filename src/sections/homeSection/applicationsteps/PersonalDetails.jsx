@@ -148,15 +148,14 @@ const PersonalDetails = ({
             fullWidth
           />
         </div>
-
         <div className={styles.formrow}>
           <TextField
-            label="Country*"
-            name="country"
-            value={form.country}
+            label="District*"
+            name="district"
+            value={form.district}
             onChange={handleChange}
-            error={!!errors.country}
-            helperText={errors.country}
+            error={!!errors.district}
+            helperText={errors.district}
             fullWidth
           />
         </div>
@@ -172,15 +171,14 @@ const PersonalDetails = ({
             fullWidth
           />
         </div>
-
         <div className={styles.formrow}>
           <TextField
-            label="District*"
-            name="district"
-            value={form.district}
+            label="Country*"
+            name="country"
+            value={form.country}
             onChange={handleChange}
-            error={!!errors.district}
-            helperText={errors.district}
+            error={!!errors.country}
+            helperText={errors.country}
             fullWidth
           />
         </div>

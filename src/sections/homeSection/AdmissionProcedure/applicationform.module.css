@@ -79,7 +79,20 @@
   transform: translateY(-1px);
   box-shadow: 0 10px 22px rgba(47, 111, 237, 0.3);
 }
+.successContainer{
+height:60vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:20px;
+text-align:center;
+}
 
+.successIcon{
+font-size:80px !important;
+color:#4CAF50;
+}
 @media (max-width: 576px) {
   .container {
     padding: 60px 0;

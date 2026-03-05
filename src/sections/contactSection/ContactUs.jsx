@@ -29,8 +29,7 @@ const ContactUs = () => {
             </div>
             <div>
               <p className={styles.label}>Admission Hotline</p>
-              <p className={styles.phone1}>+91 99947 25508</p>
-              <p className={styles.phone1}>+91 99947 25508</p>
+              <p className={styles.phone1}>+91 9994725508</p>
             </div>
           </div>
 
@@ -40,7 +39,7 @@ const ContactUs = () => {
             </div>
             <div>
               <p className={styles.label}>E-mail</p>
-              <p className={styles.phone1}>+91 99947 25508</p>
+              <p className={styles.phone1}>contact@alosodt.com</p>
             </div>
           </div>
 

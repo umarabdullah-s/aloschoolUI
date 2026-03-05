@@ -28,18 +28,26 @@ line-height: 1.4;
     margin-top: 50px;
 }
 .card{
+    
     border-radius: 30px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.card:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.12);
 }
 .img{
     height: 350px;
     width: 100%;
     overflow: hidden;
-    border-radius: 30px;
 }
+
+
 .img img{
     height: 100%;
     width: 100%;
@@ -50,7 +58,19 @@ line-height: 1.4;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    padding: 5px 20px;
+    background: #ffffff;
+    border-radius: 30px;
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,0.08),
+        0 2px 6px rgba(0,0,0,0.05);
+
+    transition: box-shadow 0.3s ease;
 }
+
+
 .profile{
     display: flex;
     justify-content: center;
@@ -60,8 +80,10 @@ line-height: 1.4;
 .profileimg{
     height:70px;
     width:70px;
-    overflow: hidden;
-    border-radius: 50%;
+    border-radius:50%;
+    overflow:hidden;
+    border:3px solid #fff;
+    box-shadow:0 4px 10px rgba(0,0,0,0.15);
 }
 .profileimg img{
     height: 100%;
@@ -84,17 +106,34 @@ line-height: 1.4;
     margin: 0;
      font-size: 0.7rem;
 }
-.profilelink
-{
-   height:50px;
-    width:50px;
-   border-radius: 50%;
-   background-color: #1676E7;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-    font-size: 25px;
-    color: aliceblue;
+.profilelink{
+  height:50px;
+  width:50px;
+  border-radius:50%;
+  background-color:#1676E7;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
+  transition:all 0.3s ease;
+}
+
+.profilelink a{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-decoration:none;
+}
+
+.behanceIcon{
+  font-size:22px;
+  color:white;
+}
+
+/* optional hover effect */
+.profilelink:hover{
+  background-color:#0f5cc0;
+  transform:scale(1.05);
 }
 .emptyState {
   grid-column: 1 / -1;

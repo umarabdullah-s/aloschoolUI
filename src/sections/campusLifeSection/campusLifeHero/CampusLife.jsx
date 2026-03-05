@@ -142,7 +142,7 @@ const [tabLoading, setTabLoading] = useState(false);
           <div className={styles.grid}>
             {activeTab.images.slice(0, visibleCount).map((img, i) => (
               <div key={i} className={styles.card}>
-                <img src={img} alt="campus" onClick={() => setPreview(img)} />
+                <img src={img} alt="campus" />
               </div>
             ))}
           </div>
@@ -161,12 +161,6 @@ const [tabLoading, setTabLoading] = useState(false);
           </div>
         )}
       </div>
-
-      {preview && (
-        <div className={styles.modal} onClick={() => setPreview(null)}>
-          <img src={preview} alt="preview" className={styles.modalImg} />
-        </div>
-      )}
     </div>
   );
 };

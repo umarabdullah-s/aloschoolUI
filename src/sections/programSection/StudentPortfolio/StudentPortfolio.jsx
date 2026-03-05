@@ -42,13 +42,13 @@ const StudentPortfolio = () => {
           {portfolio.map((item) => (
             <div className={styles.card} key={item._id}>
               <div className={styles.img}>
-                <img src={item.alumniImage} alt="project" />
+                <img src={item.thumbnailImage} alt="project" />
               </div>
 
               <div className={styles.desc}>
                 <div className={styles.profile}>
                   <div className={styles.profileimg}>
-                    <img src={item.companyLogo} alt="profile" />
+                    <img src={item.alumniImage} alt="profile" />
                   </div>
 
                   <div className={styles.profilename}>
@@ -58,7 +58,9 @@ const StudentPortfolio = () => {
                 </div>
 
                 <div className={styles.profilelink}>
-                  <FaBehance className={styles.behanceIcon} />
+                  <a href={item.link} target="_blank" rel="noopener noreferrer">
+                    <FaBehance className={styles.behanceIcon} />
+                  </a>
                 </div>
               </div>
             </div>

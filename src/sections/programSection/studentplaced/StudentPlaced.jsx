@@ -35,7 +35,7 @@ const StudentPlaced = () => {
       console.error("Error fetching alumni list:", error);
     }
   };
-const infiniteStudents = [...students, ...students];
+
   return (
     <div data-aos="fade-up" className={styles.container}>
       <div className={styles.wrapper}>
@@ -55,12 +55,16 @@ const infiniteStudents = [...students, ...students];
             modules={[Autoplay]}
             spaceBetween={20}
             slidesPerView={4}
-            loop={true}
+            loop={students.length >= 4}
             speed={5000}
-            autoplay={{
-              delay: 1,
-              disableOnInteraction: false,
-            }}
+            autoplay={
+              students.length >= 4
+                ? {
+                    delay: 1,
+                    disableOnInteraction: false,
+                  }
+                : false
+            }
             allowTouchMove={false}
             breakpoints={{
               320: { slidesPerView: 1 },
@@ -69,7 +73,7 @@ const infiniteStudents = [...students, ...students];
               1024: { slidesPerView: 4 },
             }}
           >
-            {infiniteStudents.map((student, index) => {
+            {students.map((student, index) => {
               const cardColor =
                 index % 4 === 0
                   ? styles.yellow

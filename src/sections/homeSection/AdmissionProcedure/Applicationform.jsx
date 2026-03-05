@@ -6,6 +6,7 @@ import PersonalDetails from "../applicationsteps/PersonalDetails";
 import ParentInformation from "../applicationsteps/ParentInformation";
 import EducationDetails from "../applicationsteps/EducationDetails";
 import UploadDocuments from "../applicationsteps/UploadDocuments";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import "react-phone-input-2/lib/style.css";
 import {
   Box,
@@ -32,58 +33,57 @@ const steps = [
 ];
 
 const Applicationform = () => {
+  const [submitStatus, setSubmitStatus] = useState("idle");
   const router = useRouter();
-const [form, setForm] = useState({
-  firstName: "",
-  lastName: "",
-  dob: "",
-  gender: "",
-  phone: "",
-  email: "",
-  pincode: "",
-  country: "",
-  state: "",
-  district: "",
-  address: "",
-  bloodGroup: "",
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    dob: "",
+    gender: "",
+    phone: "",
+    email: "",
+    pincode: "",
+    country: "",
+    state: "",
+    district: "",
+    address: "",
+    bloodGroup: "",
 
+    parentName: "",
+    relation: "",
+    emergencyContact: "",
+    alternateEmail: "",
+    occupation: "",
 
-  parentName: "",
-  relation: "",
-  emergencyContact: "",
-  alternateEmail: "",
-  occupation: "",
-
-  education: [
-    {
-      degree: "",
-      institute: "",
-      fromYear: "",
-      toYear: "",
-      grade: "",
+    education: [
+      {
+        degree: "",
+        institute: "",
+        fromYear: "",
+        toYear: "",
+        grade: "",
+      },
+    ],
+    documents: {
+      image: null,
+      signature: null,
+      aadhar: null,
+      marksheet: null,
+      tc: null,
     },
-  ],
-  documents: {
-    image: null,
-    signature: null,
-    aadhar: null,
-    marksheet: null,
-    tc: null,
-  },
-  agreeTerms: false,
-});
+    agreeTerms: false,
+  });
   const [errors, setErrors] = useState({});
   const [activeStep, setActiveStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState([]);
   const [documentsError, setDocumentsError] = useState(false);
   const [termsError, setTermsError] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState({
     open: false,
     message: "",
-    severity: "success", 
+    severity: "success",
   });
-  
+
   const validateField = (name, value) => {
     let error = "";
 
@@ -93,9 +93,9 @@ const [form, setForm] = useState({
       if (!/^\S+@\S+\.\S+$/.test(value)) error = "Enter valid email";
     }
 
-   if (name === "phone" && value) {
-     if (value.length < 12) error = "Enter valid phone number";
-   }
+    if (name === "phone" && value) {
+      if (value.length < 12) error = "Enter valid phone number";
+    }
 
     if (name === "pincode" && value) {
       if (!/^\d{6}$/.test(value)) error = "Enter 6 digit pincode";
@@ -104,7 +104,6 @@ const [form, setForm] = useState({
     return error;
   };
 
-  
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -115,158 +114,156 @@ const [form, setForm] = useState({
       [name]: validateField(name, value),
     }));
   };
-const stepFields = [
-  [
-    "firstName",
-    "lastName",
-    "dob",
-    "gender",
-    "phone",
-    "email",
-    "pincode",
-    "country",
-    "state",
-    "district",
-    "address",
-    "bloodGroup",
-  ],
-  [
-    "parentName",
-    "relation",
-    "emergencyContact",
-    "alternateEmail",
-    "occupation",
-  ],
-  ["degree", "institute", "fromYear", "toYear", "grade"],
-  [], 
-];
-const isStepAccessible = (step) => {
-  return completedSteps.includes(step) || step === activeStep;
-};
-const handleNext = () => {
-  let newErrors = {};
+  const stepFields = [
+    [
+      "firstName",
+      "lastName",
+      "dob",
+      "gender",
+      "phone",
+      "email",
+      "pincode",
+      "country",
+      "state",
+      "district",
+      "address",
+      "bloodGroup",
+    ],
+    [
+      "parentName",
+      "relation",
+      "emergencyContact",
+      "alternateEmail",
+      "occupation",
+    ],
+    ["degree", "institute", "fromYear", "toYear", "grade"],
+    [],
+  ];
+  const isStepAccessible = (step) => {
+    return completedSteps.includes(step) || step === activeStep;
+  };
+  const handleNext = () => {
+    let newErrors = {};
 
-  if (activeStep === 0 || activeStep === 1) {
-    const currentFields = stepFields[activeStep];
+    if (activeStep === 0 || activeStep === 1) {
+      const currentFields = stepFields[activeStep];
 
-    currentFields.forEach((field) => {
-      const error = validateField(field, form[field]);
-      if (error) newErrors[field] = error;
-    });
-  }
-
-  
-  if (activeStep === 2) {
-    form.education.forEach((edu, index) => {
-      Object.keys(edu).forEach((key) => {
-        if (!edu[key]) {
-          newErrors[`education-${index}-${key}`] = "This field is required";
-        }
+      currentFields.forEach((field) => {
+        const error = validateField(field, form[field]);
+        if (error) newErrors[field] = error;
       });
-    });
-  }
+    }
 
-  setErrors(newErrors);
-if (Object.keys(newErrors).length === 0) {
-  setCompletedSteps((prev) => [...new Set([...prev, activeStep])]);
+    if (activeStep === 2) {
+      form.education.forEach((edu, index) => {
+        Object.keys(edu).forEach((key) => {
+          if (!edu[key]) {
+            newErrors[`education-${index}-${key}`] = "This field is required";
+          }
+        });
+      });
+    }
 
-    setActiveStep((prev) => {
-      const nextStep = prev < steps.length - 1 ? prev + 1 : prev;
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length === 0) {
+      setCompletedSteps((prev) => [...new Set([...prev, activeStep])]);
 
+      setActiveStep((prev) => {
+        const nextStep = prev < steps.length - 1 ? prev + 1 : prev;
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+
+        return nextStep;
+      });
+    }
+  };
+  const handleSubmit = async () => {
+    const docs = form.documents;
+
+    const missingDoc = Object.values(docs).some((file) => !file);
+
+    if (missingDoc) {
+      setDocumentsError(true);
+      return;
+    }
+
+    setDocumentsError(false);
+
+    if (!form.agreeTerms) {
+      setTermsError(true);
+      return;
+    }
+
+    setTermsError(false);
+    setSubmitStatus("submitting");
+    try {
+      const getUrl = (res) => res?.data?.data?.imageURL || null;
+
+      const uploadedUrls = {
+        imageUrl: getUrl(await uploadFile(form.documents.image)),
+        signatureUrl: getUrl(await uploadFile(form.documents.signature)),
+        aadharUrl: getUrl(await uploadFile(form.documents.aadhar)),
+        markSheetUrl: getUrl(await uploadFile(form.documents.marksheet)),
+        tcUrl: getUrl(await uploadFile(form.documents.tc)),
+      };
+
+      await submitStudentApplication({
+        ...form,
+        documents: { ...form.documents, ...uploadedUrls },
+      });
+      setSubmitStatus("success");
+      setToast({
+        open: true,
+        message: "Application submitted successfully",
+        severity: "success",
+      });
+    
+      setTimeout(() => {
+        setForm({
+          firstName: "",
+          lastName: "",
+          dob: "",
+          gender: "",
+          phone: "",
+          email: "",
+          pincode: "",
+          country: "",
+          state: "",
+          district: "",
+          address: "",
+          bloodGroup: "",
+          parentName: "",
+          relation: "",
+          emergencyContact: "",
+          alternateEmail: "",
+          occupation: "",
+          education: [
+            { degree: "", institute: "", fromYear: "", toYear: "", grade: "" },
+          ],
+          documents: {
+            image: null,
+            signature: null,
+            aadhar: null,
+            marksheet: null,
+            tc: null,
+          },
+          agreeTerms: false,
+        });
+
+        router.push("/");
+      }, 1500);
+    } catch (error) {
+      console.log(error);
+
+      setToast({
+        open: true,
+        message: "Something went wrong. Please try again.",
+        severity: "error",
+      });
+      setSubmitStatus("idle");
       
-      window.scrollTo({ top: 0, behavior: "smooth" });
-
-      return nextStep;
-    });
-}
-};
-const handleSubmit = async () => {
-  const docs = form.documents;
-
-const missingDoc = Object.values(docs).some((file) => !file);
-
-if (missingDoc) {
-  setDocumentsError(true);
-  return;
-}
-
-setDocumentsError(false);
-
-  if (!form.agreeTerms) {
-    setTermsError(true); 
-    return;
-  }
-
-  setTermsError(false); 
-  setLoading(true); 
-  try {
-    const getUrl = (res) => res?.data?.data?.imageURL || null;
-
-    const uploadedUrls = {
-      imageUrl: getUrl(await uploadFile(form.documents.image)),
-      signatureUrl: getUrl(await uploadFile(form.documents.signature)),
-      aadharUrl: getUrl(await uploadFile(form.documents.aadhar)),
-      markSheetUrl: getUrl(await uploadFile(form.documents.marksheet)),
-      tcUrl: getUrl(await uploadFile(form.documents.tc)),
-    };
-
-    await submitStudentApplication({
-      ...form,
-      documents: { ...form.documents, ...uploadedUrls },
-    });
-
-    setToast({
-      open: true,
-      message: "Application submitted successfully",
-      severity: "success",
-    });
-    setLoading(false);
-    setTimeout(() => {
-      setForm({
-        firstName: "",
-        lastName: "",
-        dob: "",
-        gender: "",
-        phone: "",
-        email: "",
-        pincode: "",
-        country: "",
-        state: "",
-        district: "",
-        address: "",
-        bloodGroup: "",
-        parentName: "",
-        relation: "",
-        emergencyContact: "",
-        alternateEmail: "",
-        occupation: "",
-        education: [
-          { degree: "", institute: "", fromYear: "", toYear: "", grade: "" },
-        ],
-        documents: {
-          image: null,
-          signature: null,
-          aadhar: null,
-          marksheet: null,
-          tc: null,
-        },
-        agreeTerms: false,
-      });
-
-      router.push("/");
-    }, 1500);
-  } catch (error) {
-    console.log(error);
-
-    setToast({
-      open: true,
-      message: "Something went wrong. Please try again.",
-      severity: "error",
-    });
-
-    setLoading(false);
-  }
-};
+    }
+  };
 
   return (
     <Box className={styles.container}>
@@ -334,19 +331,27 @@ setDocumentsError(false);
         )}
         <Box textAlign="center" mt={5}>
           <Button
-            variant="contained"
-            size="large"
-            className={styles.nextBtn}
-            disabled={loading}
-            onClick={
-              activeStep === steps.length - 1 ? handleSubmit : handleNext
-            }
-          >
-            {loading
-              ? "Submitting..."
-              : activeStep === steps.length - 1
-                ? "Submit Application"
-                : "Next Step →"}
+  variant="contained"
+  size="large"
+  className={styles.nextBtn}
+  disabled={submitStatus === "submitting"}
+  onClick={
+    activeStep === steps.length - 1 ? handleSubmit : handleNext
+  }
+  sx={{ display: "flex", alignItems: "center", gap: 1 }}
+>
+            {activeStep === steps.length - 1
+              ? submitStatus === "idle" && "Submit Application"
+              : "Next Step →"}
+
+            {submitStatus === "submitting" && "Submitting..."}
+
+            {submitStatus === "success" && (
+              <>
+                <CheckCircleIcon fontSize="small" />
+                Submitted
+              </>
+            )}
           </Button>
         </Box>
       </Box>
@@ -354,7 +359,7 @@ setDocumentsError(false);
         open={toast.open}
         autoHideDuration={3000}
         onClose={() => setToast((prev) => ({ ...prev, open: false }))}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         TransitionComponent={SlideTransition}
       >
         <Alert

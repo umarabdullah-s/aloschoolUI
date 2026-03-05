@@ -13,6 +13,9 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { reqCallBack } from "@/api/serviceApi";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+
 const inputStyle = {
   "& .MuiOutlinedInput-root": {
     borderRadius: "30px",
@@ -22,6 +25,7 @@ const inputStyle = {
 };
 
 export default function ContactModal({ open, onClose }) {
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [status, setStatus] = useState("idle");
   // idle | sending | success
   const [form, setForm] = useState({
@@ -81,9 +85,10 @@ export default function ContactModal({ open, onClose }) {
     try {
       setStatus("sending");
 
-      await reqCallBack(form); // ⭐ API call
+      await reqCallBack(form);
 
       setStatus("success");
+      setSnackbarOpen(true); // ⭐ open snackbar
 
       setTimeout(() => {
         onClose();
@@ -103,38 +108,7 @@ export default function ContactModal({ open, onClose }) {
       setStatus("idle"); // reset button if error happens
     }
   };
-  //   if (!validateAll()) return;
-  //   setLoading(true);
-  //   try {
-  //     await reqCallBack(form);
 
-  //     setToast({
-  //       open: true,
-  //       message: "Message sent successfully 🎉",
-  //       severity: "success",
-  //     });
-
-  //     onClose();
-
-  //     setForm({
-  //       firstName: "",
-  //       lastName: "",
-  //       email: "",
-  //       phone: "",
-  //       subject: "",
-  //       message: "",
-  //     });
-  //   } catch (error) {
-  //     setToast({
-  //       open: true,
-  //       message: error?.message || "Something went wrong ❌",
-  //       severity: "error",
-  //     });
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-  
   return (
     <>
       <Dialog
@@ -270,7 +244,7 @@ export default function ContactModal({ open, onClose }) {
                   transform: "translateY(0)",
                   boxShadow: "0 3px 8px rgba(20, 65, 150, 0.2)",
                 },
-              }} 
+              }}
             >
               {status === "idle" && "Send Message"}
               {status === "sending" && "Sending..."}
@@ -284,6 +258,21 @@ export default function ContactModal({ open, onClose }) {
           </Box>
         </DialogContent>
       </Dialog>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={() => setSnackbarOpen(false)}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      >
+        <Alert
+          onClose={() => setSnackbarOpen(false)}
+          severity="success"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          Message sent successfully!
+        </Alert>
+      </Snackbar>
     </>
   );
 }

@@ -6,7 +6,7 @@ import { HiOutlineCalendarDays } from "react-icons/hi2";
 const CampusLife = () => {
   const [campusData, setCampusData] = useState([]);
   const [activeTab, setActiveTab] = useState(null);
-  const [visibleCount, setVisibleCount] = useState(6);
+  const [visibleCount, setVisibleCount] = useState(8);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -46,7 +46,7 @@ const [tabLoading, setTabLoading] = useState(false);
    const btn = e.currentTarget;
 
    setActiveTab(tab);
-   setVisibleCount(6);
+   setVisibleCount(8);
 
    try {
      setTabLoading(true);
@@ -154,7 +154,7 @@ const [tabLoading, setTabLoading] = useState(false);
           <div className={styles.loadMoreWrapper}>
             <button
               className={styles.loadMoreBtn}
-              onClick={() => setVisibleCount((prev) => prev + 6)}
+              onClick={() => setVisibleCount((prev) => prev + 8)}
             >
               Load More
             </button>

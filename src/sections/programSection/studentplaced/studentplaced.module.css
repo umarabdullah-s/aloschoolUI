@@ -153,7 +153,6 @@ color:#ccc;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    background-color: #FFBB0E;
 }
 .img{
     height: 300px;

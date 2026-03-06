@@ -25,7 +25,7 @@ const StudentPortfolio = () => {
   };
 
   const handleViewMore = () => {
-    setVisibleCount(portfolio.length); // 👈 show all
+    setVisibleCount(portfolio.length);
   };
 
   return (
@@ -59,11 +59,14 @@ const StudentPortfolio = () => {
                   </div>
                 </div>
 
-                <div className={styles.profilelink}>
-                  <a href={item.link} target="_blank" rel="noopener noreferrer">
-                    <FaBehance className={styles.behanceIcon} />
-                  </a>
-                </div>
+                <a
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.profilelink}
+                >
+                  <FaBehance className={styles.behanceIcon} />
+                </a>
               </div>
             </div>
           ))}

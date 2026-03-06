@@ -169,12 +169,18 @@ line-height: 1.4;
 }
 
 .viewMoreBtn {
-      background: #144196;
-    color: #fff;
-    border: none;
-    padding: 14px 32px;
-    border-radius: 10px;
+        position: relative;
+    background: linear-gradient(135deg, #144196, #1e5bd8);
+    padding: 15px 22px;
+    border-radius: 60px;
     cursor: pointer;
+    border: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    color: white;
+}
+.viewMoreBtn:hover{
+        transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(20, 65, 150, 0.25);
 }
 @media (max-width:576px){
 

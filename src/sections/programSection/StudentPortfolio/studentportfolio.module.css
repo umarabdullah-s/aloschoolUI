@@ -42,7 +42,7 @@ line-height: 1.4;
     box-shadow: 0 18px 40px rgba(0,0,0,0.12);
 }
 .img{
-    height: 350px;
+    height: 250px;
     width: 100%;
     overflow: hidden;
 }
@@ -162,6 +162,19 @@ line-height: 1.4;
 .emptySub {
   font-size: 14px;
   color: #888;
+}
+.viewMoreContainer {
+  text-align: center;
+  margin-top: 80px;
+}
+
+.viewMoreBtn {
+      background: #144196;
+    color: #fff;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 10px;
+    cursor: pointer;
 }
 @media (max-width:576px){
 

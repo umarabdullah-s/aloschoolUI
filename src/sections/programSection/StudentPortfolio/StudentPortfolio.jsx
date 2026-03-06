@@ -6,6 +6,7 @@ import { TbFoldersOff } from "react-icons/tb";
 
 const StudentPortfolio = () => {
   const [portfolio, setPortfolio] = useState([]);
+ const [visibleCount, setVisibleCount] = useState(9);
 
   useEffect(() => {
     fetchPortfolio();
@@ -15,15 +16,16 @@ const StudentPortfolio = () => {
     try {
       const res = await getPortfolioOnly();
 
-      // ✅ API returns data[]
-      const workData = res.data.data.filter(
-        (item) => item.model === "work"
-      );
+      const workData = res.data.data.filter((item) => item.model === "work");
 
       setPortfolio(workData);
     } catch (err) {
       console.error("Portfolio fetch failed", err);
     }
+  };
+
+  const handleViewMore = () => {
+    setVisibleCount(portfolio.length); // 👈 show all
   };
 
   return (
@@ -39,7 +41,7 @@ const StudentPortfolio = () => {
         </div>
 
         <div className={styles.cards}>
-          {portfolio.map((item) => (
+          {portfolio.slice(0, visibleCount).map((item) => (
             <div className={styles.card} key={item._id}>
               <div className={styles.img}>
                 <img src={item.thumbnailImage} alt="project" />
@@ -76,6 +78,15 @@ const StudentPortfolio = () => {
             </div>
           )}
         </div>
+
+        {/* 👇 View More Button */}
+        {portfolio.length > 9 && visibleCount === 9 && (
+          <div className={styles.viewMoreContainer}>
+            <button className={styles.viewMoreBtn} onClick={handleViewMore}>
+              View More
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

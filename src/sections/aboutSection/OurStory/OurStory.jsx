@@ -14,31 +14,30 @@ const OurStory = () => {
   const [active, setActive] = useState("history");
   
   
-  useEffect(() => {
-    const sections = [historyRef, founderRef, teamRef];
+ useEffect(() => {
+   const sections = [historyRef, founderRef, teamRef];
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add(styles.showSection);
-            setActive(entry.target.id);
-          } else {
-            entry.target.classList.remove(styles.showSection);
-          }
-        });
-      },
-      {
-        root: scrollRef.current,
-        threshold: 0.5, 
-      },
-    );
+   const observer = new IntersectionObserver(
+     (entries) => {
+       entries.forEach((entry) => {
+         if (entry.isIntersecting) {
+           entry.target.classList.add(styles.showSection);
+           setActive(entry.target.id);
+         }
+       });
+     },
+     {
+       root: scrollRef.current,
+       threshold: 0.6,
+     },
+   );
 
-    sections.forEach((ref) => {
-      if (ref.current) observer.observe(ref.current);
-    });
-    return () => observer.disconnect();
-  }, []);
+   sections.forEach((ref) => {
+     if (ref.current) observer.observe(ref.current);
+   });
+
+   return () => observer.disconnect();
+ }, []);
 
 
 const scrollToSection = (ref) => {
@@ -47,10 +46,8 @@ const scrollToSection = (ref) => {
 
   if (!container || !section) return;
 
-  const scrollTop = section.offsetTop - container.offsetTop;
-
   container.scrollTo({
-    top: scrollTop,
+    top: section.offsetTop,
     behavior: "smooth",
   });
 };

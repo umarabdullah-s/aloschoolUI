@@ -6,56 +6,73 @@ import History from "../ourHistory/History";
 import Team from "../ourTeam/Team";
 
 const OurStory = () => {
-  const scrollRef = useRef(null);
-  const historyRef = useRef(null);
-  const founderRef = useRef(null);
-  const teamRef = useRef(null);
+const historyRef = useRef(null);
+const founderRef = useRef(null);
+const teamRef = useRef(null);
+const scrollRef = useRef(null);
 
-  const [active, setActive] = useState("history");
-  
-  
- useEffect(() => {
-   const sections = [historyRef, founderRef, teamRef];
-
-   const observer = new IntersectionObserver(
-     (entries) => {
-       entries.forEach((entry) => {
-         if (entry.isIntersecting) {
-           entry.target.classList.add(styles.showSection);
-           setActive(entry.target.id);
-         }
-       });
-     },
-     {
-       root: scrollRef.current,
-       threshold: 0.6,
-     },
-   );
-
-   sections.forEach((ref) => {
-     if (ref.current) observer.observe(ref.current);
-   });
-
-   return () => observer.disconnect();
- }, []);
-
-
+const [active, setActive] = useState("history");
 const scrollToSection = (ref) => {
-  const container = scrollRef.current;
-  const section = ref.current;
+  if (!ref.current) return;
 
-  if (!container || !section) return;
-
-  container.scrollTo({
-    top: section.offsetTop,
+  ref.current.scrollIntoView({
     behavior: "smooth",
+    block: "nearest",
   });
 };
+useEffect(() => {
+  const sections = [
+    { ref: historyRef, name: "history" },
+    { ref: founderRef, name: "founder" },
+    { ref: teamRef, name: "team" },
+  ];
 
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const section = sections.find((s) => s.ref.current === entry.target);
+          if (section) setActive(section.name);
+        }
+      });
+    },
+    {
+      root: scrollRef.current,
+      threshold: 0.6,
+    },
+  );
+
+  sections.forEach((section) => {
+    if (section.ref.current) observer.observe(section.ref.current);
+  });
+
+  return () => observer.disconnect();
+}, []);
+useEffect(() => {
+  const sections = scrollRef.current.querySelectorAll(`.${styles.section}`);
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add(styles.show);
+        }
+      });
+    },
+    {
+      root: scrollRef.current,
+      threshold: 0.3,
+    },
+  );
+
+  sections.forEach((sec) => observer.observe(sec));
+
+  return () => observer.disconnect();
+}, []);
   return (
-    <div data-aos="fade-up" className={styles.container}>
+    <div className={styles.container}>
       <div className={styles.wrapper}>
-        <div className={styles.leftPanel}>
+        <div className={styles.left}>
           <p
             className={active === "history" ? styles.active : ""}
             onClick={() => scrollToSection(historyRef)}
@@ -76,27 +93,28 @@ const scrollToSection = (ref) => {
           >
             Our Team
           </p>
-
-          <p>Our Philosophy</p>
         </div>
 
-        <div className={styles.rightPanel}>
-          <p className={styles.title}>
-            Our <span>Story</span>
-          </p>
+        <div className={styles.right}>
+          <div className={styles.head}>
+            <h2>
+              <span className={styles.blue}>Our</span>{" "}
+              <span className={styles.orange}>Story</span>
+            </h2>
+          </div>
 
           <div className={styles.scrollContent} ref={scrollRef}>
-            <section id="history" ref={historyRef}>
+            <div ref={historyRef} className={styles.section}>
               <History />
-            </section>
+            </div>
 
-            <section id="founder" ref={founderRef}>
+            <div ref={founderRef} className={styles.section}>
               <Founder />
-            </section>
+            </div>
 
-            <section id="team" ref={teamRef}>
+            <div ref={teamRef} className={styles.section}>
               <Team />
-            </section>
+            </div>
           </div>
         </div>
       </div>

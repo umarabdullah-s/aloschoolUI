@@ -27,7 +27,7 @@ const Footer = () => {
               <div className={styles.contactus}>
                 <p className={styles.title1}>Contact us</p>
                 <p className={styles.num}>+91 99947 25508</p>
-                <p className={styles.email}>contact@aloinfotech.in</p>
+                <p className={styles.email}>contact@alosodt.com</p>
               </div>
               <div className={styles.location}>
                 <p className={styles.title1}>Location</p>
@@ -123,7 +123,7 @@ const Footer = () => {
         sx={{ zIndex: 9999999 }}
         PaperProps={{
           sx: {
-            borderRadius: "16px", 
+            borderRadius: "16px",
           },
         }}
       >

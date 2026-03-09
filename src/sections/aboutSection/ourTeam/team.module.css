@@ -3,6 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 .wrapper{
   width: 90%;
@@ -26,8 +27,8 @@
 .cards{
   display: flex;
   justify-content: space-around;
-  align-items: center;
   width: 100%;
+  align-items: center;
 }
 .card{
   display: flex;
@@ -142,8 +143,7 @@ align-items: center;
     display: block;
   }
 
-  .cards {
-    flex-direction: column;  
+  .cards { 
     gap: 35px;
     align-items: center;
   }

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import styles from "./Header.module.css";
-import img from "@/assets/header/logo.png";
+import img from "@/assets/header/logo1.png";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

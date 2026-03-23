@@ -4,12 +4,15 @@ import styles from "./ourstory.module.css";
 import Founder from "../ourFounder/Founder";
 import History from "../ourHistory/History";
 import Team from "../ourTeam/Team";
+import Philosophy from "../philosophy/Philosophy";
 
 const OurStory = () => {
 const historyRef = useRef(null);
 const founderRef = useRef(null);
 const teamRef = useRef(null);
+const philosophyRef = useRef(null);
 const scrollRef = useRef(null);
+
 
 const [active, setActive] = useState("history");
 const scrollToSection = (ref) => {
@@ -25,6 +28,7 @@ useEffect(() => {
     { ref: historyRef, name: "history" },
     { ref: founderRef, name: "founder" },
     { ref: teamRef, name: "team" },
+    { ref: philosophyRef, name: "philosophy" },
   ];
 
   const observer = new IntersectionObserver(
@@ -93,6 +97,12 @@ useEffect(() => {
           >
             Our Team
           </p>
+          <p
+            className={active === "philosophy" ? styles.active : ""}
+            onClick={() => scrollToSection(philosophyRef)}
+          >
+            Our Philosophy
+          </p>
         </div>
 
         <div className={styles.right}>
@@ -102,7 +112,6 @@ useEffect(() => {
               <span className={styles.orange}>Story</span>
             </h2>
           </div>
-
           <div className={styles.scrollContent} ref={scrollRef}>
             <div ref={historyRef} className={styles.section}>
               <History />
@@ -114,6 +123,9 @@ useEffect(() => {
 
             <div ref={teamRef} className={styles.section}>
               <Team />
+            </div>
+            <div ref={philosophyRef} className={styles.section}>
+              <Philosophy />
             </div>
           </div>
         </div>

@@ -16,8 +16,7 @@ const History = () => {
         <p>
           The ALO School is a South Tamil Nadu’s leading Design and Technology
           College, instituted in 2025 by our best IT team who are professionals
-          in our IT solutions. Hence, they know how to provide trainings for
-          Industry expectations
+          in our IT solutions. They provide the best training to prepare students for industry expectations.
         </p>
         <p>
           We observed that students coming out of college have no idea about
@@ -28,12 +27,12 @@ const History = () => {
           design work based on real industry standards and professional
           discipline.
         </p>
-        <p>
+        {/* <p>
           Our curriculum bridges the gap between academics and industry through
           project-based learning and expert guidance. Students gain practical
           skills, confidence, and a professional mindset to succeed in modern
           design careers.
-        </p>
+        </p> */}
       </div>
     </div>
   );

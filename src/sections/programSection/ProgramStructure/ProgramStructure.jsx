@@ -1,8 +1,8 @@
 import React from 'react'
 import styles from "./programstructure.module.css"
 import img1 from "@/assets/program/programstructure/img1.jpeg"
-import img2 from "@/assets/program/programstructure/img2.png";
-import img3 from "@/assets/program/programstructure/img3.png";
+import img2 from "@/assets/program/programstructure/Gemini_Generated_Image_vvixv5vvixv5vvix.png";
+import img3 from "@/assets/program/programstructure/Gemini_Generated_Image_drij2mdrij2mdrij.png";
 
 const ProgramStructure = () => {
   return (

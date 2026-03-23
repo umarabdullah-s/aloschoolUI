@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './admissionprocedure.module.css'
 import img1 from "@/assets/homepage/admissionprocedure/img1.jpeg";
 import img2 from "@/assets/homepage/admissionprocedure/img2.jpeg";
-import img3 from "@/assets/homepage/admissionprocedure/img3.jpeg";
+import img3 from "@/assets/homepage/admissionprocedure/7009.jpg";
 import Link from "next/link";
 import PersonalDetails from "../applicationsteps/PersonalDetails";
 

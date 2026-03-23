@@ -28,7 +28,7 @@ const Founder = () => {
             <FaLinkedinIn className={styles.linkedinIcon} />
           </a>
         </div>
-        <p>
+        <p className={styles.para}>
           Meet Natarajan, the leader who shaped ALO groups of company’s journey.
           Starting with just two people, he built ALO into a strong and growing
           family. In South Tamil Nadu, he is admired as a technology leader who

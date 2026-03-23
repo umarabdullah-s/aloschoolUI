@@ -32,9 +32,9 @@ const Footer = () => {
               <div className={styles.location}>
                 <p className={styles.title1}>Location</p>
                 <p className={styles.num}>
-                  Chunkankai Jn, Nagercoil,
+                  Chunkankadai Jn, Nagercoil,
                   <br /> Kanniyakumari,
-                  <br /> 629001
+                  <br /> 629003
                 </p>
               </div>
             </div>
@@ -55,9 +55,9 @@ const Footer = () => {
               </div>
               <div className={styles.para}>
                 <p>
-                  Interested to discover how your business <br />
-                  can achieve strategic outcomes with <br />
-                  ALO Info-Tech? 
+                   Design your future
+                  <br /> and master the art of design
+                  <br /> with ALO School of Design & Technology
                 </p>
               </div>
             </div>
@@ -65,6 +65,17 @@ const Footer = () => {
               <p>
                 © {new Date().getFullYear()} ALO School of Design & Technology.
                 All rights reserved.
+              </p>
+              <p>
+                Developed by{" "}
+                <a
+                  href="https://aloinfotech.in/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: "#FFFFFF", textDecoration: "underline" }}
+                >
+                  ALO INFOTECH
+                </a>
               </p>
             </div>
           </div>
@@ -85,7 +96,7 @@ const Footer = () => {
             </div>
             <div className={styles.social}>
               <a
-                href="https://www.facebook.com/people/Alo-School/pfbid0ek55Uz6jsxvbJZCnUDqR3FEd197dFTUkxjoPYGRksUDU8VG6e1RYPZN91pdCuBpLl/"
+                href="https://www.facebook.com/profile.php?id=61581231454085"
                 target="_blank"
                 rel="noopener noreferrer"
               >
